@@ -64,8 +64,9 @@ test('Login, Verify Dashboard, and Logout - Exam Taker Flow', async ({ page }) =
   await page.waitForTimeout(1000);
 
   // Step 13: Logout
-  await page.locator('#logout-button').click();
-  await page.waitForTimeout(2000);
+await page.waitForSelector('#logout-button', { state: 'visible', timeout: 10000 });
+await page.locator('#logout-button').click();
+await page.waitForTimeout(3000);
 
   // Step 14: Click "Back" button after logout
   await page.getByRole('button', { name: 'Back' }).click();

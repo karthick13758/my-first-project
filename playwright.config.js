@@ -1,11 +1,27 @@
-/** @type {import('@playwright/test').PlaywrightTestConfig} */
+// playwright.config.js
+const { defineConfig } = require('@playwright/test');
 
-const config = {
-  use: {
-    headless: false,   // Show browser window
-    slowMo: 1000     // Slow down actions by 1000 milliseconds (1 second)
-  },
-};
+module.exports = defineConfig({
+  timeout: 30000,
+  retries: 0,
+  reporter: 'html',
 
-console.log("✅ Playwright config loaded");
-module.exports = config;
+  projects: [
+    {
+      name: 'chrome-with-media',
+      use: {
+        browserName: 'chromium',
+        headless: false,
+        viewport: { width: 1280, height: 720 },
+        permissions: ['camera', 'microphone'],
+        launchOptions: {
+          args: [
+            '--use-fake-ui-for-media-stream',
+            '--use-fake-device-for-media-stream'
+          ]
+        }
+      }
+    }
+  ]
+});
+
